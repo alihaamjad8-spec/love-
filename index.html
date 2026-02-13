@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine’s Day ❤️</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  background:linear-gradient(180deg,#ff758c,#ff7eb3);
+  height:100vh;
+  overflow:hidden;
+  font-family:'Segoe UI',sans-serif;
+  color:white;
+}
+
+/* SCREENS */
+.screen{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  opacity:0;
+  transition:opacity 1.5s ease;
+  padding:40px;
+}
+.active{opacity:1;}
+
+h1{font-size:clamp(2rem,3vw,3.2rem);line-height:1.4;}
+
+/* FLOATING HEARTS */
+.heart{
+  position:absolute;
+  font-size:22px;
+  animation:floatUp 6s linear infinite;
+}
+@keyframes floatUp{
+  from{transform:translateY(100vh);opacity:1;}
+  to{transform:translateY(-10vh);opacity:0;}
+}
+
+/* ===== ROMANTIC SCENE ===== */
+.loveScene{
+  position:relative;
+  width:80vw;
+  max-width:900px;
+  height:70vh;
+  border-radius:30px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(8px);
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+/* glowing text */
+.glowText{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:clamp(2.2rem,3vw,3.5rem);
+  text-shadow:
+    0 0 10px #fff,
+    0 0 20px #ffd6e0,
+    0 0 40px #ff4d6d,
+    0 0 70px #ff4d6d;
+  animation:heartbeat 1.4s infinite;
+}
+
+/* heartbeat */
+@keyframes heartbeat{
+  0%{transform:translate(-50%,-50%) scale(1);}
+  25%{transform:translate(-50%,-50%) scale(1.08);}
+  50%{transform:translate(-50%,-50%) scale(1);}
+  75%{transform:translate(-50%,-50%) scale(1.08);}
+  100%{transform:translate(-50%,-50%) scale(1);}
+}
+
+/* sparkles */
+.spark{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:white;
+  border-radius:50%;
+  opacity:.8;
+  animation:sparkle 4s linear infinite;
+}
+@keyframes sparkle{
+  from{transform:translateY(80vh) scale(0.3);opacity:0;}
+  30%{opacity:1;}
+  to{transform:translateY(-20vh) scale(1);opacity:0;}
+}
+
+/* BUTTON */
+button{
+  padding:18px 45px;
+  font-size:1.2rem;
+  border:none;
+  border-radius:50px;
+  background:white;
+  color:#ff4d6d;
+  cursor:pointer;
+  animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.08);}
+  100%{transform:scale(1);}
+}
+
+.yesText{
+  font-size:clamp(2rem,3vw,3rem);
+  animation:fadeIn 1.5s forwards;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(.8);}
+  to{opacity:1;transform:scale(1);}
+}
+
+.tap{
+  position:absolute;
+  bottom:25px;
+  width:100%;
+  text-align:center;
+  opacity:.85;
+  font-size:1rem;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="screen active">
+  <h1>Happy Valentine’s Day ❤️</h1>
+</div>
+
+<div class="screen">
+  <h1>From the moment you entered my life,<br>everything felt warmer ✨</h1>
+</div>
+
+<div class="screen">
+  <h1>Your smile, your kindness,<br>the way you exist 💖<br><br>It all means more than you know</h1>
+</div>
+
+<div class="screen">
+  <div class="loveScene">
+      <div class="glowText">You & Me = Forever ♾️</div>
+  </div>
+</div>
+
+<div class="screen">
+  <div id="question">
+    <h1>Will you be my Valentine? 💌</h1><br>
+    <button onclick="sayYes()">Yes 💍</button>
+  </div>
+</div>
+
+<div class="tap">With much love 💕</div>
+
+<script>
+const scenes=document.querySelectorAll(".screen");
+let current=0;
+
+setInterval(()=>{
+ if(current<scenes.length-1){
+  scenes[current].classList.remove("active");
+  current++;
+  scenes[current].classList.add("active");
+ }
+},6000);
+
+function createHeart(){
+ const heart=document.createElement("div");
+ heart.className="heart";
+ heart.innerHTML="❤️";
+ heart.style.left=Math.random()*100+"vw";
+ heart.style.fontSize=Math.random()*15+18+"px";
+ document.body.appendChild(heart);
+ setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,400);
+
+function createSpark(){
+ const s=document.createElement("div");
+ s.className="spark";
+ s.style.left=Math.random()*100+"%";
+ s.style.animationDuration=(Math.random()*2+3)+"s";
+ document.querySelector(".loveScene")?.appendChild(s);
+ setTimeout(()=>s.remove(),5000);
+}
+setInterval(createSpark,200);
+
+function sayYes(){
+ const final=document.getElementById("question");
+ final.innerHTML="<div class='yesText'>You just made my heart the happiest 💖<br> Aliam Forever starts now 💍</div>";
+ for(let i=0;i<30;i++){setTimeout(createHeart,i*120);}
+}
+</script>
+
+</body>
+</html>
